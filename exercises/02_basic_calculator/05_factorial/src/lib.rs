@@ -10,6 +10,14 @@
 //
 // Use only what you learned! No loops yet, so you'll have to use recursion!
 
+fn factorial(n: i32) -> i32 {
+    if n < 0 {panic!("Cannot calculate factorial of a negative number")}
+    match n {
+        0 | 1 => {1},
+        _  => n * factorial(n - 1)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use crate::factorial;
