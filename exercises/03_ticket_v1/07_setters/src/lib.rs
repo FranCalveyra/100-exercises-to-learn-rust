@@ -11,22 +11,10 @@ pub struct Ticket {
 
 impl Ticket {
     pub fn new(title: String, description: String, status: String) -> Ticket {
-        if title.is_empty() {
-            panic!("Title cannot be empty");
-        }
-        if title.len() > 50 {
-            panic!("Title cannot be longer than 50 bytes");
-        }
-        if description.is_empty() {
-            panic!("Description cannot be empty");
-        }
-        if description.len() > 500 {
-            panic!("Description cannot be longer than 500 bytes");
-        }
-        if status != "To-Do" && status != "In Progress" && status != "Done" {
-            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
-        }
-
+        Self::check_title_is_valid(&title);
+        Self::check_description_is_valid(&description);
+        Self::check_status_is_valid(&status);
+        
         Ticket {
             title,
             description,
@@ -44,6 +32,45 @@ impl Ticket {
 
     pub fn status(&self) -> &String {
         &self.status
+    }
+
+    pub fn set_title(&mut self, title: String) {
+        Self::check_title_is_valid(&title);
+        self.title = title
+    }
+
+    pub fn set_description(&mut self, description: String) {
+        Self::check_description_is_valid(&description);
+        self.description = description 
+    }
+
+    pub fn set_status(&mut self, status: String) {
+        Self::check_status_is_valid(&status);
+        self.status = status
+    }
+    
+    fn check_title_is_valid(title: &String) {
+        if title.is_empty() {
+            panic!("Title cannot be empty");
+        }
+        if title.len() > 50 {
+            panic!("Title cannot be longer than 50 bytes");
+        }
+    }
+    
+    fn check_description_is_valid(description: &String) {
+        if description.is_empty() {
+            panic!("Description cannot be empty");
+        }
+        if description.len() > 500 {
+            panic!("Description cannot be longer than 500 bytes");
+        }
+    }
+    
+    fn check_status_is_valid(status: &String) {
+        if status != "To-Do" && status != "In Progress" && status != "Done" {
+            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
+        }
     }
 }
 
